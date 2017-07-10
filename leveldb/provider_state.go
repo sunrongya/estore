@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 
+	proto "github.com/golang/protobuf/proto"
 	"github.com/syndtr/goleveldb/leveldb"
 	"github.com/syndtr/goleveldb/leveldb/util"
 )
@@ -13,6 +14,13 @@ type providerState struct {
 	_db     *leveldb.DB
 	_closed bool
 	_wg     sync.WaitGroup
+}
+
+func newProviderState(provider *Provider) *providerState {
+	return &providerState{
+		Provider: provider,
+		_closed:  true,
+	}
 }
 
 func (state *providerState) Restart() {

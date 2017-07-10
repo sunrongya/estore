@@ -1,7 +1,7 @@
 package leveldb
 
 import (
-	"github.com/AsynkronIT/protoactor-go/persistence"
+	"github.com/sunrongya/estore"
 )
 
 type Provider struct {
@@ -10,10 +10,8 @@ type Provider struct {
 	_coder            Coder
 }
 
-func (provider *Provider) GetState() persistence.ProviderState {
-	return &ProviderState{
-		Provider: provider,
-	}
+func (provider *Provider) GetState() estore.ProviderState {
+	return newProviderState(provider)
 }
 
 func New(path string, options ...Option) *Provider {
